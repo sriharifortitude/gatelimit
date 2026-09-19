@@ -1,5 +1,7 @@
 # gatelimit
 
+[![CI](https://github.com/sriharifortitude/gatelimit/actions/workflows/ci.yml/badge.svg)](https://github.com/sriharifortitude/gatelimit/actions/workflows/ci.yml)
+
 A rate-limiting reverse proxy in Go. Put it in front of an API, give it
 a JSON file of rules, and it enforces per-key or per-IP limits with
 token buckets or sliding windows — in one process, or across many with
