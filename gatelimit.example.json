@@ -1,0 +1,35 @@
+{
+  "listen": ":8080",
+  "upstream": "http://127.0.0.1:4200",
+  "store": "redis",
+  "redis_addr_env": "REDIS_ADDR",
+  "on_store_error": "open",
+  "trusted_proxies": ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"],
+  "rules": [
+    {
+      "name": "ingest",
+      "path_prefix": "/api/events",
+      "key": "api_key",
+      "algorithm": "token_bucket",
+      "rate": 50,
+      "period": "1s",
+      "burst": 200
+    },
+    {
+      "name": "query",
+      "path_prefix": "/api/query",
+      "key": "api_key",
+      "algorithm": "sliding_window",
+      "rate": 300,
+      "period": "1m"
+    },
+    {
+      "name": "health",
+      "path_prefix": "/api/health",
+      "key": "ip",
+      "algorithm": "token_bucket",
+      "rate": 5,
+      "period": "1s"
+    }
+  ]
+}
